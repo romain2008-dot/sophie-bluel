@@ -203,3 +203,8 @@ footer nav ul {
 	font-size: 16px;
 	padding: 5px 15px;
 }
+
+.filter-button-selected {
+	background-color: #1D6154;
+	color: white;
+}
