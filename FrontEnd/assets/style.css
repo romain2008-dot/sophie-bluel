@@ -183,6 +183,23 @@ input[type="submit"]{
 footer nav ul {
 	display: flex;
 	justify-content: flex-end;
-	margin: 2em
+	margin: 2em;
 }
 
+.filters {
+	display: flex;
+	gap: 10px;
+	justify-content: center;
+	margin: 2em;
+}
+
+.filter-button {
+	cursor: pointer;
+	font-family: 'Syne';
+	font-weight: 700;
+	color: #1D6154;
+	border: #1D6154 1px solid;
+	border-radius: 60px;
+	font-size: 16px;
+	padding: 5px 15px;
+}
