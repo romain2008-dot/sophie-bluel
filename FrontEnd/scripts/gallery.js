@@ -14,10 +14,12 @@ function chargerProjets() {
         .catch(error => console.error("Erreur lors de la récupération des projets :", error));
 }
 
+chargerProjets();
+
 // Fonction pour afficher les projets
 function afficherProjets(projets) {
     const gallery = document.querySelector(".gallery");
-    gallery.innerHTML = ''; // Vider la galerie avant d'afficher les projets
+    gallery.innerHTML = ""; // Vider la galerie avant d'afficher les projets
 
     projets.forEach(projet => {
         const figure = document.createElement("figure");
@@ -34,22 +36,3 @@ function afficherProjets(projets) {
         gallery.appendChild(figure);
     });
 }
-
-// Fonction pour filtrer les projets par catégorie
-function filterProjects(categoryName) {
-    let projetsFiltres;
-    
-    if (categoryName === 'Tous') {
-        // Si on clique sur "Tous", afficher tous les projets
-        projetsFiltres = tousLesProjets;
-    } else {
-        // Sinon, filtrer les projets par catégorie
-        projetsFiltres = tousLesProjets.filter(projet => projet.category.name === categoryName);
-    }
-    
-    // Afficher les projets filtrés
-    afficherProjets(projetsFiltres);
-}
-
-// Exécuter le chargement des projets au démarrage
-chargerProjets();

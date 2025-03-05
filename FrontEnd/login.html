@@ -9,13 +9,14 @@
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
 	<meta name="description" content="">
 	<link rel="stylesheet" href="./assets/style.css">
+	<script src="scripts/auth.js" defer></script>
 </head>
 <body class="login__body">
 <header>
 	<a href="index.html"><h1>Sophie Bluel <span>Architecte d'intérieur</span></h1></a>
 	<nav>
 		<ul>
-			<li><a href="index.html#porrfolio">projets</a></li>
+			<li><a href="index.html#portfolio">projets</a></li>
 			<li><a href="index.html#contact">contact</a></li>
 			<li><a href="login.html" class="gras">login</a></li>
 			<li><a href="https://www.instagram.com" target="_blank"><img src="./assets/icons/instagram.png" alt="Instagram"></a></li>
@@ -26,9 +27,9 @@
 <h1 class="form__title">Log In</h1>
 <form action="#" class="form">
     <label for="email" class="form__label">E-mail</label>
-    <input type="email" name="email" id="email">
+    <input type="email" name="email" id="email" autocomplete="email">
     <label for="password" class="form__label">Mots de passe</label>
-    <input type="password" name="password" id="password">
+    <input type="password" name="password" id="password" autocomplete="current-password">
     <button type="submit" class="form__button">Se connecter</button>
     <a href="#" class="form__link">Mot de passe oublié</a>
 </form>
