@@ -16,7 +16,7 @@
 	<script src="scripts/modal.js" defer></script>
 </head>
 <body>
-	<div class="edit__mode">
+	<div class="edit__mode none">
 		<i class="fa-solid fa-pen-to-square"></i>
 		<p>Mode édition</p>
 	</div>
@@ -46,7 +46,7 @@
 	<section id="portfolio">
 		<div class="title__container">
 			<h2 class="mes-projets-title">Mes Projets</h2>
-		    <span class="modifier"><i class="fa-solid fa-pen-to-square"></i>modifier</span>
+		    <span class="modifier none"><i class="fa-solid fa-pen-to-square"></i>modifier</span>
 		</div>
 		
 		<div class="filters"></div><div class="gallery">
@@ -74,16 +74,16 @@
 		</ul>
 	</nav>
 </footer>
-<div id="myModal" class="modal">
-	<div class="modal-content">
+<div id="myModal" class="modal none">
+	<div class="modal-content none">
 		<span class="close">&times;</span>
 		<h2 class="modal-title">Galerie photo</h2>
 		<div class="photos-container"></div>
 		<hr>
-		<button class="modal-button">Ajouter une photo</button>
+		<button class="modal-button" id="modal-button">Ajouter une photo</button>
 	</div>
 
-	<div class="modal-content modal-add-file">
+	<div class="modal-content modal-add-file none">
 		<i class="fa-solid fa-arrow-left"></i>
         <span class="close">&times;</span>
         <h2 class="modal-title modal-title-file">Ajout photo</h2>

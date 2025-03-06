@@ -1,9 +1,16 @@
-// Attendre que la fonction filterProjects soit disponible
+let categoriesGlobales = [];
+
 fetch("http://localhost:5678/api/categories")
     .then(function(response) {
         return response.json();
     })
     .then(function(categories) {
+        categoriesGlobales = categories; // Stocker les catégories dans la variable globale
+
+        // Déclencher un événement personnalisé pour notifier que les catégories sont prêtes
+        const event = new CustomEvent('categoriesLoaded', { detail: categoriesGlobales });
+        document.dispatchEvent(event);
+
         // Création du bouton "Tous"
         const filtersContainer = document.querySelector(".filters");
 
@@ -58,7 +65,7 @@ fetch("http://localhost:5678/api/categories")
         console.error("Erreur lors du chargement des catégories:", error);
     });
 
-    // Fonction pour filtrer les projets par catégorie
+// Fonction pour filtrer les projets par catégorie
 function filterProjects(categoryName) {
     let projetsFiltres;
     

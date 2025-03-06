@@ -23,6 +23,7 @@ function afficherProjets(projets) {
 
     projets.forEach(projet => {
         const figure = document.createElement("figure");
+        figure.dataset.id = projet.id; // Ajouter l'ID comme attribut de données
 
         const img = document.createElement("img");
         img.src = projet.imageUrl;
