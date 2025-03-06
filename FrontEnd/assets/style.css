@@ -317,7 +317,6 @@ a {
 	margin-top: 0;
 }
 
-/* Style pour le modal */
 .modal {
     display: none;
     position: fixed;
@@ -333,13 +332,21 @@ a {
     align-items: center;
 }
 
-/* Contenu du modal */
 .modal-content {
     background-color: white;
     padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-    max-width: 600px; 
+    width: 40%;
+	border-radius: 10px;
+	display: none; /******************************************/
+}
+
+.modal-title{
+	font-size: 26px;
+	font-weight: 400;
+	color: black;
+	font-family: "Work Sans";
+	text-align: center;
+	margin-top: 50px;
 }
 
 .modal-button{
@@ -348,12 +355,15 @@ a {
 	color: white;
 	background-color: #1D6154;
 	margin : 2em auto ;
-	width: 180px;
-	text-align: center;
+	padding: 10px;
+	width: 200px;
 	border-radius: 60px ;
 	border: none;
+	display: flex;
+	justify-content: center;
+	cursor: pointer;
 }
-/* Bouton de fermeture */
+
 .close {
     color: black;
     float: right;
@@ -362,19 +372,88 @@ a {
 	cursor: pointer;
 }
 
-.photos__container {
+.photos-container {
     display: grid;
-    grid-template-columns: repeat(5, 1fr); /* 5 colonnes de largeur égale */
-    gap: 10px; /* Espacement entre les images */
-    padding: 20px; /* Marge intérieure */
+    grid-template-columns: repeat(5, 1fr); 
+    gap: 10px; 
+    padding: 40px 70px; 
 }
 
-.photos__container img {
-    width: 100%; /* Pour que les images prennent toute la largeur de leur colonne */
-    height: auto; /* Conserver les proportions */
-    object-fit: cover; /* Ajustement de l’image sans déformation */
+.photos-container img {
+    width: 100%; 
+    height: auto;
+    object-fit: cover;
 }
 
 hr{
 	opacity: 0.5;
+	width: 80%;
 }
+
+.photo-item {
+    position: relative;
+    width: 100%;
+}
+
+.icon-container {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    padding: 5px;
+    border-radius:5px ;
+    background: black;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon-container i {
+    font-size: 10px;
+    color: white;
+}
+
+/*******************************************************/
+.modal-add-file {
+    padding: 40px;
+	display: block;
+}
+
+.fa-solid.fa-arrow-left{
+	font-size:20px;
+	cursor: pointer;
+}
+
+.modal-title-file{
+	margin: 20px;
+}
+
+.upload-box {
+    background-color: #e8eff4;
+    border-radius: 5px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+	margin-top: 40px;
+}
+
+.upload-box i {
+    font-size: 40px;
+    color: grey;
+}
+
+.upload-box input {
+    display: none;
+}
+
+.input-field {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
