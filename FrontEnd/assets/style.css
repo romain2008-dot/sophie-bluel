@@ -69,7 +69,7 @@ h1{
 	font-family: 'Syne';
 	font-size: 22px;
 	font-weight: 800;
-	color: #B1663C
+	color: #B1663C;
 }
 
 h1 > span {
@@ -83,7 +83,7 @@ h2{
 	font-family: 'Syne';
 	font-weight: 700;
 	font-size: 30px;
-	color: #1D6154
+	color: #1D6154;
 }
 nav ul {
 	display: flex;
@@ -285,4 +285,34 @@ html, body {
 a {
 	text-decoration: none;
 	color: inherit;
+}
+
+.title__container{
+	display: flex;
+	justify-content: center;
+}
+
+.fa-solid.fa-pen-to-square{
+	font-size: 14px;
+	margin: 10px 5px 0 20px;
+}
+
+.modifier:hover{
+	color: #B1663C;
+	cursor: pointer;
+	text-decoration: underline;
+}
+
+.edit__mode{
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: black;
+	color: white;
+	height: 60px;
+}
+
+.edit__mode .fa-solid.fa-pen-to-square{
+	margin-top: 0;
 }
