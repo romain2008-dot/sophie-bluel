@@ -135,16 +135,16 @@ errorMessage.classList.add('error-message');
 form.appendChild(errorMessage);
 
 // Prévisualisation de l'image
-photoInput.addEventListener('change', (e) => {
-    const file = e.target.files[0];
+photoInput.addEventListener('change', (event) => {
+    const file = event.target.files[0];
     if (file) {
         const reader = new FileReader();
-        reader.onload = (e) => {
+        reader.onload = (event) => {
             const preview = document.querySelector('.upload-box');
             
             // Création d'une nouvelle image
             const img = document.createElement('img');
-            img.src = e.target.result;
+            img.src = event.target.result;
             
             // Suppression de l'ancienne image si elle existe
             const oldImg = preview.querySelector('img');
@@ -163,8 +163,8 @@ photoInput.addEventListener('change', (e) => {
 });
 
 // Soumission du formulaire
-form.addEventListener('submit', async (e) => {
-    e.preventDefault();
+form.addEventListener('submit', async (event) => {
+    event.preventDefault();
     errorMessage.textContent = '';
 
     const formData = new FormData();
