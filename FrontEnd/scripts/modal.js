@@ -1,3 +1,47 @@
+// Fonction pour créer un élément de galerie
+function createGalleryItem(work, container) {
+    const div = document.createElement("div");
+    div.classList.add("photo-item");
+    div.dataset.id = work.id;
+
+    const img = document.createElement("img");
+    img.src = work.imageUrl;
+    img.alt = work.title;
+
+    const iconContainer = document.createElement("div");
+    iconContainer.classList.add("icon-container");
+
+    const trashIcon = document.createElement("i");
+    trashIcon.classList.add("fa-solid", "fa-trash-can");
+    
+    trashIcon.addEventListener("click", async () => {
+        try {
+            const token = localStorage.getItem('token');
+            const response = await fetch(`http://localhost:5678/api/works/${work.id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            if (response.ok) {
+                div.remove();
+                const galleryItem = document.querySelector(`.gallery [data-id="${work.id}"]`);
+                if (galleryItem) galleryItem.remove();
+                tousLesProjets = tousLesProjets.filter(projet => projet.id !== work.id);
+                afficherProjets(tousLesProjets);
+            }
+        } catch (error) {
+            console.error('Erreur:', error);
+        }
+    });
+
+    iconContainer.appendChild(trashIcon);
+    div.appendChild(img);
+    div.appendChild(iconContainer);
+    container.appendChild(div);
+}
+
 document.addEventListener("DOMContentLoaded", async () => {
     const container = document.querySelector(".photos-container");
 
@@ -6,59 +50,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (!response.ok) throw new Error("Erreur lors de la récupération des données");
 
         const works = await response.json();
-        
-        works.forEach(work => {
-            const div = document.createElement("div");
-            div.classList.add("photo-item");
-            div.dataset.id = work.id; // Ajouter l'ID comme attribut de données
-
-            const img = document.createElement("img");
-            img.src = work.imageUrl;
-            img.alt = work.title;
-
-            const iconContainer = document.createElement("div");
-            iconContainer.classList.add("icon-container");
-
-            const trashIcon = document.createElement("i");
-            trashIcon.classList.add("fa-solid", "fa-trash-can");
-            // Ajouter l'événement de clic pour la suppression
-            trashIcon.addEventListener("click", async () => {
-                try {
-                    const token = localStorage.getItem('token');
-                    const response = await fetch(`http://localhost:5678/api/works/${work.id}`, {
-                        method: 'DELETE',
-                        headers: {
-                            'Authorization': `Bearer ${token}`
-                        }
-                    });
-
-                    if (response.ok) {
-                        // Supprime l'élément de la modal
-                        div.remove();
-                        
-                        // Supprime l'élément de la galerie principale
-                        const galleryItem = document.querySelector(`.gallery [data-id="${work.id}"]`);
-                        if (galleryItem) galleryItem.remove();
-                        
-                        // Mettre à jour tousLesProjets
-                        tousLesProjets = tousLesProjets.filter(projet => projet.id !== work.id);
-                        
-                        // Réafficher la galerie avec les projets mis à jour
-                        afficherProjets(tousLesProjets);
-                    } else {
-                        throw new Error('Erreur lors de la suppression');
-                    }
-                } catch (error) {
-                    console.error('Erreur:', error);
-                }
-            });
-
-            iconContainer.appendChild(trashIcon);
-            div.appendChild(img);
-            div.appendChild(iconContainer);
-            container.appendChild(div);
-        });
-
+        works.forEach(work => createGalleryItem(work, container));
     } catch (error) {
         console.error(error);
     }
@@ -80,48 +72,7 @@ function updateModal(works) {
     const container = document.querySelector(".photos-container");
     container.innerHTML = ''; // Vider le conteneur
 
-    works.forEach(work => {
-        const div = document.createElement("div");
-        div.classList.add("photo-item");
-        div.dataset.id = work.id;
-
-        const img = document.createElement("img");
-        img.src = work.imageUrl;
-        img.alt = work.title;
-
-        const iconContainer = document.createElement("div");
-        iconContainer.classList.add("icon-container");
-
-        const trashIcon = document.createElement("i");
-        trashIcon.classList.add("fa-solid", "fa-trash-can");
-        
-        trashIcon.addEventListener("click", async () => {
-            try {
-                const token = localStorage.getItem('token');
-                const response = await fetch(`http://localhost:5678/api/works/${work.id}`, {
-                    method: 'DELETE',
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    }
-                });
-
-                if (response.ok) {
-                    div.remove();
-                    const galleryItem = document.querySelector(`.gallery [data-id="${work.id}"]`);
-                    if (galleryItem) galleryItem.remove();
-                    tousLesProjets = tousLesProjets.filter(projet => projet.id !== work.id);
-                    afficherProjets(tousLesProjets);
-                }
-            } catch (error) {
-                console.error('Erreur:', error);
-            }
-        });
-
-        iconContainer.appendChild(trashIcon);
-        div.appendChild(img);
-        div.appendChild(iconContainer);
-        container.appendChild(div);
-    });
+    works.forEach(work => createGalleryItem(work, container));
 }
 
 // Gestion de l'ouverture et de la fermeture de la modal
@@ -256,48 +207,7 @@ form.addEventListener('submit', async (e) => {
             const container = document.querySelector(".photos-container");
             container.innerHTML = ''; // Vider le conteneur
             
-            works.forEach(work => {
-                const div = document.createElement("div");
-                div.classList.add("photo-item");
-                div.dataset.id = work.id;
-
-                const img = document.createElement("img");
-                img.src = work.imageUrl;
-                img.alt = work.title;
-
-                const iconContainer = document.createElement("div");
-                iconContainer.classList.add("icon-container");
-
-                const trashIcon = document.createElement("i");
-                trashIcon.classList.add("fa-solid", "fa-trash-can");
-                
-                // Ajouter l'événement de suppression
-                trashIcon.addEventListener("click", async () => {
-                    try {
-                        const deleteResponse = await fetch(`http://localhost:5678/api/works/${work.id}`, {
-                            method: 'DELETE',
-                            headers: {
-                                'Authorization': `Bearer ${token}`
-                            }
-                        });
-
-                        if (deleteResponse.ok) {
-                            div.remove();
-                            const galleryItem = document.querySelector(`.gallery [data-id="${work.id}"]`);
-                            if (galleryItem) galleryItem.remove();
-                            tousLesProjets = tousLesProjets.filter(projet => projet.id !== work.id);
-                            afficherProjets(tousLesProjets);
-                        }
-                    } catch (error) {
-                        console.error('Erreur:', error);
-                    }
-                });
-
-                iconContainer.appendChild(trashIcon);
-                div.appendChild(img);
-                div.appendChild(iconContainer);
-                container.appendChild(div);
-            });
+            works.forEach(work => createGalleryItem(work, container));
             
             // Réinitialiser le formulaire
             form.reset();
@@ -343,4 +253,3 @@ categorySelect.addEventListener('change', checkFormValidity);
 
 // Initialiser l'état du bouton au chargement
 checkFormValidity();
-
