@@ -6,20 +6,18 @@ function checkAuth() {
     if (loginLink === null || loginLink === undefined) return; 
 
     if (token) { // verifier si le token existe
-        // Si connecté, changer le texte en "logout"
         loginLink.textContent = "logout";
         loginLink.addEventListener("click", function(event) {
             event.preventDefault();
-            localStorage.removeItem("token"); // Supprimer le token
-            window.location.href = "login.html"; // Rediriger vers la page login
+            localStorage.removeItem("token");
+            window.location.reload();
         });
     } else {
-        // Si déconnecté, s'assurer que le texte est "login"
         loginLink.textContent = "login";
     }
 }
 
-// Si nous sommes sur la page de connexion
+// Si on est sur la page de connexion
 if (document.querySelector(".form")) { // Vérifier si la classe .form existe
     const loginForm = document.querySelector(".form");
     loginForm.addEventListener("submit", async (event) => {

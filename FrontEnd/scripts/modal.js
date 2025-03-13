@@ -67,10 +67,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 });
 
-// Ajouter cette fonction après les déclarations des constantes
 function updateModal(works) {
     const container = document.querySelector(".photos-container");
-    container.innerHTML = ''; // Vider le conteneur
+    container.replaceChildren() // Vider le conteneur
 
     works.forEach(work => createGalleryItem(work, container));
 }

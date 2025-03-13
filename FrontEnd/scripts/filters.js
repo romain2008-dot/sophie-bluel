@@ -26,14 +26,12 @@ fetch("http://localhost:5678/api/categories")
             buttons.forEach(button => {
                 button.classList.remove("filter-button-selected");
             });
-
             event.target.classList.add("filter-button-selected");
         }
 
         // Ajout d'un event listener sur le bouton "Tous"
         allButton.addEventListener("click", (event) => {
-            handleButtonClick(event);
-            // S'assurer que filterProjects est disponible
+            handleButtonClick(event);// S'assurer que filterProjects est disponible
             if (typeof filterProjects === "function") {
                 filterProjects("Tous");
             } else {
@@ -50,8 +48,8 @@ fetch("http://localhost:5678/api/categories")
 
             // Ajout d'un event listener sur les boutons filtres
             categoryButton.addEventListener("click", (event) => {
-                handleButtonClick(event);
-                // S'assurer que filterProjects est disponible
+                handleButtonClick(event);// S'assurer que filterProjects est disponible
+
                 if (typeof filterProjects === "function") {
                     filterProjects(category.name);
                 } else {

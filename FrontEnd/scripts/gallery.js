@@ -19,7 +19,7 @@ chargerProjets();
 // Fonction pour afficher les projets
 function afficherProjets(projets) {
     const gallery = document.querySelector(".gallery");
-    gallery.innerHTML = ""; // Vider la galerie avant d'afficher les projets
+    gallery.replaceChildren(); // Vider la galerie avant d'afficher les projets
 
     projets.forEach(projet => {
         const figure = document.createElement("figure");
