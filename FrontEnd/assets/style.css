@@ -549,3 +549,10 @@ hr{
     background-color: #A7A7A7 !important; /* Couleur grise */
     cursor: not-allowed; /* Indiquer que le bouton est désactivé */
 }
+
+#confirmation-message {
+    color: green;
+    text-align: center;
+    margin-top: 20px;
+	font-weight: 900;
+}

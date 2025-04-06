@@ -14,7 +14,7 @@ function createGalleryItem(work, container) {
     const trashIcon = document.createElement("i");
     trashIcon.classList.add("fa-solid", "fa-trash-can");
     
-    trashIcon.addEventListener("click", async () => {
+    div.addEventListener("click", async () => {
         try {
             const token = localStorage.getItem('token');
             const response = await fetch(`http://localhost:5678/api/works/${work.id}`, {
@@ -28,8 +28,8 @@ function createGalleryItem(work, container) {
                 div.remove();
                 const galleryItem = document.querySelector(`.gallery [data-id="${work.id}"]`);
                 if (galleryItem) galleryItem.remove();
-                tousLesProjets = tousLesProjets.filter(projet => projet.id !== work.id);
-                afficherProjets(tousLesProjets);
+                allProjects = allProjects.filter(project => project.id !== work.id);
+                displayProjects(allProjects);
             }
         } catch (error) {
             console.error('Erreur:', error);
@@ -199,8 +199,8 @@ form.addEventListener('submit', async (event) => {
             const works = await worksResponse.json();
             
             // Mettre à jour la galerie principale
-            tousLesProjets = works;
-            afficherProjets(works);
+            allProjects = works;
+            displayProjects(works);
             
             // Mettre à jour la modal
             const container = document.querySelector(".photos-container");
@@ -209,19 +209,21 @@ form.addEventListener('submit', async (event) => {
             works.forEach(work => createGalleryItem(work, container));
             
             // Réinitialiser le formulaire
-            form.reset();
-            const uploadBox = document.querySelector('.upload-box');
-            const previewImage = uploadBox.querySelector('img');
-            if (previewImage) {
-                previewImage.remove();
-            }
-            uploadBox.querySelector('i').style.display = 'block';
-            uploadBox.querySelector('.upload-text').style.display = 'block';
-            uploadBox.querySelector('.file-format').style.display = 'block';
+form.reset();
+const uploadBox = document.querySelector('.upload-box');
+const previewImage = uploadBox.querySelector('img');
+if (previewImage) {
+    previewImage.remove();
+}
+            // Au lieu de block, utilisez la valeur d'affichage appropriée pour chaque élément
+            uploadBox.querySelector('i').style.display = '';  // Supprime le style inline
+            uploadBox.querySelector('.upload-text').style.display = '';  // Supprime le style inline
+            uploadBox.querySelector('.file-format').style.display = '';  // Supprime le style inline
             
             // Fermer la modal d'ajout et revenir à la galerie
             fileModal.classList.add('none');
-            modalContent.classList.remove('none');
+            modalContent.classList.add('none');
+            modal.classList.add('none');
         } else {
             throw new Error('Erreur lors de l\'ajout du projet');
         }

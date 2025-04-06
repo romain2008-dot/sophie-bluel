@@ -1,14 +1,14 @@
-let categoriesGlobales = [];
+let globalCategories = [];
 
 fetch("http://localhost:5678/api/categories")
     .then(function(response) {
         return response.json();
     })
     .then(function(categories) {
-        categoriesGlobales = categories; // Stocker les catégories dans la variable globale
+        globalCategories = categories; // Stocker les catégories dans la variable globale
 
         // Déclencher un événement personnalisé pour notifier que les catégories sont prêtes
-        const event = new CustomEvent('categoriesLoaded', { detail: categoriesGlobales });
+        const event = new CustomEvent('categoriesLoaded', { detail: globalCategories });
         document.dispatchEvent(event);
 
         // Création du bouton "Tous"
@@ -65,16 +65,16 @@ fetch("http://localhost:5678/api/categories")
 
 // Fonction pour filtrer les projets par catégorie
 function filterProjects(categoryName) {
-    let projetsFiltres;
+    let filteredProjects;
     
     if (categoryName === "Tous") {
         // Si on clique sur "Tous", afficher tous les projets
-        projetsFiltres = tousLesProjets;
+        filteredProjects = allProjects;
     } else {
         // Sinon, filtrer les projets par catégorie
-        projetsFiltres = tousLesProjets.filter(projet => projet.category.name === categoryName);
+        filteredProjects = allProjects.filter(projet => projet.category.name === categoryName);
     }
     
     // Afficher les projets filtrés
-    afficherProjets(projetsFiltres);
+    displayProjects(filteredProjects);
 }
