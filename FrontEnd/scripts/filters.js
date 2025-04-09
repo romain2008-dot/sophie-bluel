@@ -1,80 +1,68 @@
 let globalCategories = [];
 
-fetch("http://localhost:5678/api/categories")
-    .then(function(response) {
-        return response.json();
-    })
-    .then(function(categories) {
-        globalCategories = categories; // Stocker les catégories dans la variable globale
+async function loadCategories() {
+    try {
+        const response = await fetch("http://localhost:5678/api/categories");
+        if (!response.ok) throw new Error('Erreur réseau');
+        
+        const categories = await response.json();
+        globalCategories = categories;
 
-        // Déclencher un événement personnalisé pour notifier que les catégories sont prêtes
+        // Déclencher l'événement
         const event = new CustomEvent('categoriesLoaded', { detail: globalCategories });
         document.dispatchEvent(event);
 
-        // Création du bouton "Tous"
+        // Création des boutons
         const filtersContainer = document.querySelector(".filters");
 
+        // Bouton "Tous"
         const allButton = document.createElement("button");
         allButton.textContent = "Tous";
-        allButton.classList.add("filter-button");
-        allButton.classList.add("filter-button-selected");
+        allButton.classList.add("filter-button", "filter-button-selected");
         filtersContainer.appendChild(allButton);
 
-        // Ajouter ou enlever la classe filter-button-selected des boutons
+        // Gestionnaire de clic pour les boutons
         function handleButtonClick(event) {
-            const buttons = document.querySelectorAll(".filter-button");
-            buttons.forEach(button => {
-                button.classList.remove("filter-button-selected");
-            });
+            document.querySelectorAll(".filter-button")
+                .forEach(button => button.classList.remove("filter-button-selected"));
             event.target.classList.add("filter-button-selected");
         }
 
-        // Ajout d'un event listener sur le bouton "Tous"
+        // Event listener pour "Tous"
         allButton.addEventListener("click", (event) => {
-            handleButtonClick(event);// S'assurer que filterProjects est disponible
+            handleButtonClick(event);
             if (typeof filterProjects === "function") {
                 filterProjects("Tous");
-            } else {
-                console.error("La fonction filterProjects n'est pas disponible");
             }
         });
 
-        // Création des boutons filtres grâce à la réponse de l'API
+        // Création des boutons de catégorie
         categories.forEach(category => {
             const categoryButton = document.createElement("button");
             categoryButton.textContent = category.name;
             categoryButton.classList.add("filter-button");
             filtersContainer.appendChild(categoryButton);
 
-            // Ajout d'un event listener sur les boutons filtres
             categoryButton.addEventListener("click", (event) => {
-                handleButtonClick(event);// S'assurer que filterProjects est disponible
-
+                handleButtonClick(event);
                 if (typeof filterProjects === "function") {
                     filterProjects(category.name);
-                } else {
-                    console.error("La fonction filterProjects n'est pas disponible");
                 }
             });
         });
-    })
-    // Gestion des erreurs
-    .catch(function(error) {
-        console.error("Erreur lors du chargement des catégories:", error);
-    });
 
-// Fonction pour filtrer les projets par catégorie
-function filterProjects(categoryName) {
-    let filteredProjects;
-    
-    if (categoryName === "Tous") {
-        // Si on clique sur "Tous", afficher tous les projets
-        filteredProjects = allProjects;
-    } else {
-        // Sinon, filtrer les projets par catégorie
-        filteredProjects = allProjects.filter(projet => projet.category.name === categoryName);
+    } catch (error) {
+        console.error("Erreur lors du chargement des catégories:", error);
     }
-    
-    // Afficher les projets filtrés
+}
+
+// Appel de la fonction au chargement
+loadCategories();
+
+// Fonction de filtrage des projets
+function filterProjects(categoryName) {
+    const filteredProjects = categoryName === "Tous" 
+        ? allProjects 
+        : allProjects.filter(projet => projet.category.name === categoryName);
     displayProjects(filteredProjects);
 }

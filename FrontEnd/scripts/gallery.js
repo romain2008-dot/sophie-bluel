@@ -2,34 +2,37 @@
 let allProjects = [];
 
 // Fonction pour récupérer et afficher les projets
-function loadProjects() {
-    fetch("http://localhost:5678/api/works")
-        .then(response => response.json())
-        .then(projects=> {
-            // Stocker tous les projets dans la variable globale
-            allProjects = projects;
-            // Afficher tous les projets au chargement initial
-            displayProjects(projects);
-        })
-        .catch(error => console.error("Erreur lors de la récupération des projets :", error));
+async function loadProjects() {
+    try {
+        const response = await fetch("http://localhost:5678/api/works");
+        if (!response.ok) throw new Error('Erreur réseau');
+        
+        const projects = await response.json();
+        allProjects = projects;
+        displayProjects(projects);
+    } catch (error) {
+        console.error("Erreur lors de la récupération des projets :", error);
+    }
 }
 
+// Appel de la fonction au chargement
 loadProjects();
 
-// Fonction pour afficher les projets
+// Fonction d'affichage des projets
 function displayProjects(projects) {
     const gallery = document.querySelector(".gallery");
-    gallery.replaceChildren(); // Vider la galerie avant d'afficher les projets
+    gallery.replaceChildren();
 
     projects.forEach(project => {
         const figure = document.createElement("figure");
+        figure.dataset.id = project.id;
 
         const img = document.createElement("img");
         img.src = project.imageUrl;
         img.alt = project.title;
 
         const caption = document.createElement("figcaption");
-        caption.textContent = projects.title;
+        caption.textContent = project.title;
 
         figure.appendChild(img);
         figure.appendChild(caption);
