@@ -12,7 +12,6 @@ async function loadCategories() {
         const event = new CustomEvent('categoriesLoaded', { detail: globalCategories });
         document.dispatchEvent(event);
 
-        // Création des boutons
         const filtersContainer = document.querySelector(".filters");
 
         // Bouton "Tous"

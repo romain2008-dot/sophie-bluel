@@ -24,11 +24,11 @@ function createGalleryItem(work, container) {
             });
 
             if (response.ok) {
+                // Supprimer les éléments visuels
                 div.remove();
                 const galleryItem = document.querySelector(`.gallery [data-id="${work.id}"]`);
                 if (galleryItem) galleryItem.remove();
-                allProjects = allProjects.filter(project => project.id !== work.id);
-                displayProjects(allProjects);
+                await loadProjects();
             }
         } catch (error) {
             console.error('Erreur:', error);
