@@ -1,4 +1,3 @@
-// Fonction pour créer un élément de galerie
 function createGalleryItem(work, container) {
     const div = document.createElement("div");
     div.classList.add("photo-item");
@@ -66,13 +65,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         filtersContainer.classList.add("none");
     }
 });
-
-function updateModal(works) {
-    const container = document.querySelector(".photos-container");
-    container.replaceChildren() // Vider le conteneur
-
-    works.forEach(work => createGalleryItem(work, container));
-}
 
 // Gestion de l'ouverture et de la fermeture de la modal
 const modifierButton = document.querySelector(".modifier");
@@ -192,7 +184,6 @@ form.addEventListener('submit', async (event) => {
         });
 
         if (response.ok) {
-            const newWork = await response.json();
             
             // Mettre à jour les données
             const worksResponse = await fetch("http://localhost:5678/api/works");
