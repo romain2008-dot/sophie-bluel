@@ -121,14 +121,22 @@ const form = document.querySelector(".modal-add-file form");
 const photoInput = form.querySelector('input[type="file"]');
 const titleInput = form.querySelector('#title');
 const categorySelect = form.querySelector('#category');
-const errorMessage = document.createElement('p');
-errorMessage.classList.add('error-message');
-form.appendChild(errorMessage);
 
 // Prévisualisation de l'image
+const MAX_FILE_SIZE = 4 * 1024 * 1024;
+
 photoInput.addEventListener('change', (event) => {
     const file = event.target.files[0];
+    
     if (file) {
+        // Vérification de la taille
+        if (file.size > MAX_FILE_SIZE) {
+            showError('Le fichier ne doit pas dépasser 4mo');
+            photoInput.value = ''; // Réinitialise l'input
+            return;
+        }
+
+        // Si tout est ok, continuer avec la prévisualisation
         const reader = new FileReader();
         reader.onload = (event) => {
             const preview = document.querySelector('.upload-box');
@@ -156,16 +164,15 @@ photoInput.addEventListener('change', (event) => {
 // Soumission du formulaire
 form.addEventListener('submit', async (event) => {
     event.preventDefault();
-    errorMessage.textContent = '';
-
+    showError('');
     const formData = new FormData();
     const photo = photoInput.files[0];
     const title = titleInput.value;
     const category = categorySelect.value;
 
     // Validation
-    if (!photo || !title || !category) {
-        errorMessage.textContent = "Tous les champs sont requis";
+    if (!photo || !title || !category || category === 'Sélectionnez une Catégorie') {
+        showError('Tous les champs sont requis');
         return;
     }
 
@@ -220,7 +227,7 @@ if (previewImage) {
         }
     } catch (error) {
         console.error('Erreur:', error);
-        errorMessage.textContent = "Une erreur est survenue lors de l'envoi du formulaire";
+        showError("Une erreur est survenue lors de l'envoi du formulaire");
     }
 });
 
@@ -228,10 +235,8 @@ const submitButton = form.querySelector('input[type="submit"]');
 
 function checkFormValidity() {
     const isPhotoValid = photoInput.files.length > 0;
-    const isTitleValid = titleInput.value.trim() !== '';
-    const isCategoryValid = categorySelect.value !== '' && categorySelect.value !== 'Sélectionnez une Catégorie';
-
-    if (isPhotoValid && isTitleValid && isCategoryValid) {
+    
+    if (isPhotoValid) {
         submitButton.classList.remove('submit-button-disabled');
     } else {
         submitButton.classList.add('submit-button-disabled');

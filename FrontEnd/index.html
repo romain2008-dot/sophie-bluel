@@ -97,8 +97,7 @@
                     <div class="upload-box">
                         <i class="fa-regular fa-image"></i>
                         <span class="upload-text">+ Ajouter photo</span>
-                        <input type="file" name="photo" accept="image/*">
-                        <span class="file-format">jpg, png · 4mo max</span>
+						<input type="file" name="photo" accept=".jpg, .jpeg, .png">                        <span class="file-format">jpg, png · 4mo max</span>
                     </div>
                 </label>
             </div>
@@ -110,6 +109,7 @@
             </select>
             <hr>
             <input type="submit" value="Valider" class="modal-button modal-button-validate submit-button-disabled">
+			<div class="error-message-container"><p class="error-message"></p></div>
         </form>
     </div>
 </div>

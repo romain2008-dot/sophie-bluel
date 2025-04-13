@@ -274,6 +274,7 @@ footer nav ul {
 	border-radius: 60px ;
 	border: none;
 	padding: 10px;
+	cursor: pointer;
 }
 
 .form__link{
@@ -538,11 +539,11 @@ hr{
 }
 
 .error-message {
-    color: red;
-	font-weight: 900;
-    font-size: 20px;
-    margin-top: 5px;
+    color: #ff0000;
     text-align: center;
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: bold;
 }
 
 .submit-button-disabled {
