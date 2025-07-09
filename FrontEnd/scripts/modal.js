@@ -7,7 +7,13 @@ function createGalleryItem(work, container) {
     div.dataset.id = work.id;
 
     const img = document.createElement("img");
-    img.src = work.imageUrl.startsWith('http') ? work.imageUrl : API_BASE_URL + work.imageUrl;
+    // Remplacer les URLs localhost par l'URL de production
+    if (work.imageUrl.includes('localhost')) {
+        const filename = work.imageUrl.split('/').pop();
+        img.src = `${API_BASE_URL}/images/${filename}`;
+    } else {
+        img.src = work.imageUrl.startsWith('http') ? work.imageUrl : API_BASE_URL + work.imageUrl;
+    }
     img.alt = work.title;
 
     const iconContainer = document.createElement("div");

@@ -30,7 +30,13 @@ function displayProjects(projects) {
         figure.dataset.id = project.id;
 
         const img = document.createElement("img");
-        img.src = project.imageUrl.startsWith('http') ? project.imageUrl : API_BASE_URL + project.imageUrl;
+        // Remplacer les URLs localhost par l'URL de production
+        if (project.imageUrl.includes('localhost')) {
+            const filename = project.imageUrl.split('/').pop();
+            img.src = `${API_BASE_URL}/images/${filename}`;
+        } else {
+            img.src = project.imageUrl.startsWith('http') ? project.imageUrl : API_BASE_URL + project.imageUrl;
+        }
         img.alt = project.title;
 
         const caption = document.createElement("figcaption");
