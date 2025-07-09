@@ -55,9 +55,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     try {
         const worksResponse = await fetch(`${API_BASE_URL}/api/works`);
-        if (!response.ok) throw new Error("Erreur lors de la récupération des données");
+        if (!worksResponse.ok) throw new Error("Erreur lors de la récupération des données");
 
-        const works = await response.json();
+        const works = await worksResponse.json();
         works.forEach(work => createGalleryItem(work, container));
     } catch (error) {
         console.error(error);
