@@ -1,5 +1,5 @@
-
 import { API_BASE_URL } from "./config.js";
+import { allProjects, displayProjects } from "./gallery.js";
 
 function createGalleryItem(work, container) {
     const div = document.createElement("div");
