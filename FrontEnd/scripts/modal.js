@@ -1,5 +1,5 @@
 import { API_BASE_URL } from "./config.js";
-import { allProjects, displayProjects, loadProjects } from "./gallery.js";
+import { allProjects, displayProjects, loadProjects } from './gallery.js';
 
 function createGalleryItem(work, container) {
     const div = document.createElement("div");
@@ -199,33 +199,26 @@ form.addEventListener('submit', async (event) => {
         });
 
         if (response.ok) {
-            
-            // Mettre à jour les données
-            const worksResponse = await fetch(`${API_BASE_URL}/api/works`);
-            const works = await worksResponse.json();
-            
-            // Mettre à jour la galerie principale
-            allProjects = works;
-            displayProjects(works);
-            
-            // Mettre à jour la modal
+            await loadProjects(); // Refresh the projects list
+            displayProjects(allProjects); // Update the main gallery
+
+            // Update the modal gallery
             const container = document.querySelector(".photos-container");
-            container.innerHTML = ''; // Vider le conteneur
-            
-            works.forEach(work => createGalleryItem(work, container));
-            
-            // Réinitialiser le formulaire
-form.reset();
-const uploadBox = document.querySelector('.upload-box');
-const previewImage = uploadBox.querySelector('img');
-if (previewImage) {
-    previewImage.remove();
-}
-            uploadBox.querySelector('i').style.display = '';  // Supprime le style inline
-            uploadBox.querySelector('.upload-text').style.display = '';  // Supprime le style inline
-            uploadBox.querySelector('.file-format').style.display = '';  // Supprime le style inline
-            
-            // Fermer la modal d'ajout et revenir à la galerie
+            container.innerHTML = '';
+            allProjects.forEach(work => createGalleryItem(work, container));
+
+            // Reset the form and preview
+            form.reset();
+            const uploadBox = document.querySelector('.upload-box');
+            const previewImage = uploadBox.querySelector('img');
+            if (previewImage) {
+                previewImage.remove();
+            }
+            uploadBox.querySelector('i').style.display = '';
+            uploadBox.querySelector('.upload-text').style.display = '';
+            uploadBox.querySelector('.file-format').style.display = '';
+
+            // Close modals
             fileModal.classList.add('none');
             modalContent.classList.add('none');
             modal.classList.add('none');
