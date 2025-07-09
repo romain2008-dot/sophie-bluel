@@ -47,3 +47,6 @@ function displayProjects(projects) {
         gallery.appendChild(figure);
     });
 }
+
+// Exporter les éléments nécessaires
+export { allProjects, displayProjects };

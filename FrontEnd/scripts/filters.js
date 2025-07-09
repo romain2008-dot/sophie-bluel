@@ -1,4 +1,5 @@
 import { API_BASE_URL } from "./config.js";
+import { allProjects, displayProjects } from "./gallery.js";
 
 let globalCategories = [];
 

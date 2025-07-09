@@ -7,7 +7,6 @@ function createGalleryItem(work, container) {
     div.dataset.id = work.id;
 
     const img = document.createElement("img");
-    // Remplacer les URLs localhost par l'URL de production
     if (work.imageUrl.includes('localhost')) {
         const filename = work.imageUrl.split('/').pop();
         img.src = `${API_BASE_URL}/images/${filename}`;
@@ -222,7 +221,6 @@ const previewImage = uploadBox.querySelector('img');
 if (previewImage) {
     previewImage.remove();
 }
-            // Au lieu de block, utilisez la valeur d'affichage appropriée pour chaque élément
             uploadBox.querySelector('i').style.display = '';  // Supprime le style inline
             uploadBox.querySelector('.upload-text').style.display = '';  // Supprime le style inline
             uploadBox.querySelector('.file-format').style.display = '';  // Supprime le style inline
@@ -257,5 +255,30 @@ photoInput.addEventListener('change', checkFormValidity);
 titleInput.addEventListener('input', checkFormValidity);
 categorySelect.addEventListener('change', checkFormValidity);
 
-// Initialiser l'état du bouton au chargement
 checkFormValidity();
+
+
+function showError(message) {
+    const errorElement = document.querySelector('.error-message');
+    
+    if (!errorElement) {
+        const newErrorElement = document.createElement('p');
+        newErrorElement.classList.add('error-message');
+        newErrorElement.style.color = 'red';
+        newErrorElement.style.marginTop = '10px';
+        newErrorElement.style.textAlign = 'center';
+        
+        const submitButton = form.querySelector('input[type="submit"]');
+        form.insertBefore(newErrorElement, submitButton);
+        
+        newErrorElement.textContent = message;
+    } else {
+        errorElement.textContent = message;
+        
+        if (!message) {
+            errorElement.style.display = 'none';
+        } else {
+            errorElement.style.display = 'block';
+        }
+    }
+}
