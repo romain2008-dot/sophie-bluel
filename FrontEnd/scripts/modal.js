@@ -1,4 +1,6 @@
 
+import { API_BASE_URL } from "./config.js";
+
 function createGalleryItem(work, container) {
     const div = document.createElement("div");
     div.classList.add("photo-item");
@@ -17,7 +19,7 @@ function createGalleryItem(work, container) {
     div.addEventListener("click", async () => {
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch(`https://sophie-bluel-4uiy.onrender.com/api/works/${work.id}`, {
+            const response = await fetch(`${API_BASE_URL}/api/works/${work.id}`, {
                 method: 'DELETE',
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -46,7 +48,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const container = document.querySelector(".photos-container");
 
     try {
-        const response = await fetch("https://sophie-bluel-4uiy.onrender.com/api/works");
+        const worksResponse = await fetch(`${API_BASE_URL}/api/works`);
         if (!response.ok) throw new Error("Erreur lors de la récupération des données");
 
         const works = await response.json();
@@ -183,7 +185,7 @@ form.addEventListener('submit', async (event) => {
 
     try {
         const token = localStorage.getItem('token');
-        const response = await fetch('https://sophie-bluel-4uiy.onrender.com/api/works', {
+        const response = await fetch(`${API_BASE_URL}/api/works`, {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -194,7 +196,7 @@ form.addEventListener('submit', async (event) => {
         if (response.ok) {
             
             // Mettre à jour les données
-            const worksResponse = await fetch("https://sophie-bluel-4uiy.onrender.com/api/works");
+            const worksResponse = await fetch(`${API_BASE_URL}/api/works`);
             const works = await worksResponse.json();
             
             // Mettre à jour la galerie principale

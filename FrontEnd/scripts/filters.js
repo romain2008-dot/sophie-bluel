@@ -1,8 +1,10 @@
+import { API_BASE_URL } from "./config.js";
+
 let globalCategories = [];
 
 async function loadCategories() {
     try {
-        const response = await fetch("https://sophie-bluel-4uiy.onrender.com/api/categories");
+        const response = await fetch(`${API_BASE_URL}/api/categories`);
         if (!response.ok) throw new Error('Erreur réseau');
         
         const categories = await response.json();
