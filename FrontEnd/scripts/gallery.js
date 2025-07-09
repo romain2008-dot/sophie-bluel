@@ -49,4 +49,4 @@ function displayProjects(projects) {
 }
 
 // Exporter les éléments nécessaires
-export { allProjects, displayProjects };
+export { allProjects, displayProjects, loadProjects };
