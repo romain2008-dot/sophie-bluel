@@ -1,3 +1,5 @@
+import { API_BASE_URL } from './config.js';
+
 // Fonction pour vérifier si l'utilisateur est connecté
 function checkAuth() {
     const token = localStorage.getItem("token");
@@ -54,7 +56,7 @@ if (document.querySelector(".form")) {
         const password = document.getElementById("password").value;
 
         try {
-            const response = await fetch("https://sophie-bluel-4uiy.onrender.com/api/users/login", {
+            const response = await fetch(`${API_BASE_URL}/api/users/login`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
