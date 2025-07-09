@@ -4,7 +4,7 @@ let allProjects = [];
 // Fonction pour récupérer et afficher les projets
 async function loadProjects() {
     try {
-        const response = await fetch("http://localhost:5678/api/works");
+        const response = await fetch("https://sophie-bluel-4uiy.onrender.com/api/works");
         if (!response.ok) throw new Error('Erreur réseau');
         
         const projects = await response.json();

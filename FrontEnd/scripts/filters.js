@@ -2,7 +2,7 @@ let globalCategories = [];
 
 async function loadCategories() {
     try {
-        const response = await fetch("http://localhost:5678/api/categories");
+        const response = await fetch("https://sophie-bluel-4uiy.onrender.com/api/categories");
         if (!response.ok) throw new Error('Erreur réseau');
         
         const categories = await response.json();
