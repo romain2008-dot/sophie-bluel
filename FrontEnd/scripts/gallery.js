@@ -1,11 +1,10 @@
-import { API_BASE_URL } from './config.js';
 // Variable globale pour stocker tous les projets
 let allProjects = [];
 
 // Fonction pour récupérer et afficher les projets
 async function loadProjects() {
     try {
-        const response = await fetch(`${API_BASE_URL}/api/works`);
+        const response = await fetch("https://sophie-bluel-4uiy.onrender.com/api/works");
         if (!response.ok) throw new Error('Erreur réseau');
         
         const projects = await response.json();
@@ -29,7 +28,7 @@ function displayProjects(projects) {
         figure.dataset.id = project.id;
 
         const img = document.createElement("img");
-        img.src = project.imageUrl.startsWith('http') ? project.imageUrl : `${API_BASE_URL}${project.imageUrl}`;
+        img.src = project.imageUrl;
         img.alt = project.title;
 
         const caption = document.createElement("figcaption");
